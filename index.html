@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#160d18">
+<title>Where the Petals Find Mahi</title>
+<style>
+:root{--ink:#160d18;--wine:#40182f;--rose:#e9a0b5;--blush:#f8dce5;--gold:#e8c58a;--muted:#d7bdc9}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:#fff5f7;background:radial-gradient(ellipse at 50% 0%,#51243f 0%,#251321 42%,#100b16 100%);font-family:Georgia,"Times New Roman",serif;overflow-x:hidden}
+button{font:inherit}
+.screen{min-height:100svh;display:none;position:relative;isolation:isolate;padding:clamp(24px,6vw,58px) 20px calc(30px + env(safe-area-inset-bottom));align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.screen.active{display:flex;animation:screenIn .9s ease both}
+@keyframes screenIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.wrap{width:min(100%,680px);margin:auto;position:relative;z-index:2}
+.eyebrow{font:600 10px/1.5 system-ui,sans-serif;letter-spacing:.34em;text-transform:uppercase;color:var(--gold)}
+h1,h2,p{margin-top:0}
+h1{font-weight:400;font-size:clamp(2.45rem,10vw,5.2rem);line-height:1.04;letter-spacing:-.045em;margin:18px 0}
+h2{font-weight:400;font-size:clamp(2rem,8vw,3.7rem);line-height:1.1;margin:12px 0 20px}
+p{font-size:clamp(1rem,4vw,1.18rem);line-height:1.85;color:#f0dce5}
+.script{font-style:italic;color:var(--rose)}
+.gold{color:var(--gold)}
+.btn{border:1px solid rgba(255,220,232,.35);border-radius:999px;padding:15px 25px;min-height:52px;background:linear-gradient(135deg,#e8a2b8,#b85b7e);color:#291321;font:700 13px system-ui,sans-serif;letter-spacing:.04em;box-shadow:0 10px 35px #d8789b38;cursor:pointer;transition:transform .25s,box-shadow .25s,opacity .25s}
+.btn:active{transform:scale(.97)}
+.btn.secondary{background:#ffffff0b;color:#f9e8ef;border-color:#ffffff38;box-shadow:none}
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:28px;position:relative;min-height:58px}#noTalk.dodging{position:fixed;z-index:20;margin:0;transition:left .28s ease,top .28s ease,opacity .45s,transform .28s}
+.glass{background:linear-gradient(145deg,#ffffff12,#ffffff06);border:1px solid #ffffff20;border-radius:26px;padding:clamp(22px,6vw,38px);box-shadow:0 20px 70px #0005;backdrop-filter:blur(14px)}
+.orb{position:absolute;border-radius:50%;filter:blur(1px);pointer-events:none;z-index:0;background:radial-gradient(circle,#f5b9ce55,transparent 68%);animation:drift 9s ease-in-out infinite alternate}
+.orb.one{width:290px;height:290px;top:-90px;left:-100px}.orb.two{width:360px;height:360px;bottom:-170px;right:-140px;animation-delay:-4s}
+@keyframes drift{to{transform:translate(30px,25px) scale(1.12)}}
+.flower{width:112px;height:112px;margin:0 auto 22px;position:relative;animation:float 4s ease-in-out infinite}
+.flower i{position:absolute;width:34px;height:54px;left:39px;top:2px;transform-origin:17px 54px;border-radius:80% 15% 75% 25%;background:linear-gradient(145deg,#ffdce8,#c65e86);box-shadow:0 0 20px #f4a4c955}
+.flower i:nth-child(1){transform:rotate(0deg)}.flower i:nth-child(2){transform:rotate(60deg)}.flower i:nth-child(3){transform:rotate(120deg)}.flower i:nth-child(4){transform:rotate(180deg)}.flower i:nth-child(5){transform:rotate(240deg)}.flower i:nth-child(6){transform:rotate(300deg)}
+.flower b{position:absolute;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff0b8,#d99a4e 75%);left:44px;top:44px;box-shadow:0 0 22px #f4c77c}
+@keyframes float{50%{transform:translateY(-9px) rotate(3deg)}}
+#petals{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+.petal{position:absolute;top:-30px;width:12px;height:19px;border-radius:90% 10% 85% 15%;background:linear-gradient(145deg,#ffe0e9,#bd557c);opacity:.7;animation:fall linear forwards}
+@keyframes fall{to{transform:translate3d(var(--sway),110vh,0) rotate(650deg);opacity:.08}}
+.spark{position:absolute;width:3px;height:3px;border-radius:50%;background:#ffe8b8;box-shadow:0 0 12px 3px #f6c98c88;animation:twinkle 2.6s ease-in-out infinite alternate}
+@keyframes twinkle{to{opacity:.15;transform:scale(.45)}}
+.wish{max-width:590px;margin:0 auto;color:#f4dfe7}
+.line{opacity:0;transform:translateY(12px);animation:lineIn .9s ease forwards}
+@keyframes lineIn{to{opacity:1;transform:none}}
+.dialogue{font-size:clamp(1.35rem,5vw,2rem);line-height:1.5}
+.proposal-lines p{margin:0 0 17px;font-size:clamp(1.08rem,4.3vw,1.32rem);line-height:1.75}
+.proposal-question{font-size:clamp(1.45rem,6vw,2.3rem)!important;color:#ffe1eb;font-style:italic;margin-top:24px!important}
+.ring-stage{height:180px;display:grid;place-items:center;margin:8px 0 10px}
+.ring{width:92px;height:92px;border:7px solid transparent;border-top-color:#f5dca2;border-left-color:#dcae69;border-right-color:#fff0c6;border-bottom-color:#a76d3f;border-radius:50%;transform:rotateX(65deg) scale(.2);opacity:0;filter:drop-shadow(0 0 16px #f4d28a);animation:ringReveal 2s cubic-bezier(.2,.8,.2,1) forwards}
+.ring:before{content:"";position:absolute;width:21px;height:21px;left:29px;top:-23px;transform:rotateX(-65deg) rotate(45deg);background:linear-gradient(135deg,#fff7dc,#d5a4ba);border:2px solid #f8e6bd;box-shadow:0 0 18px #ffe5a5}
+@keyframes ringReveal{to{opacity:1;transform:rotateX(65deg) scale(1)}}
+.rose{display:inline-block;width:32px;height:32px;margin:0 5px;position:relative;vertical-align:middle}
+.rose:before,.rose:after{content:"";position:absolute;border-radius:80% 15% 80% 20%;background:linear-gradient(140deg,#ffb3c9,#9c315a);width:24px;height:29px;left:4px;top:1px;transform:rotate(25deg)}
+.rose:after{transform:rotate(95deg);background:linear-gradient(140deg,#e989a9,#762342)}
+.letter{max-height:58svh;overflow:auto;text-align:left;scrollbar-width:thin;scrollbar-color:#b76a86 transparent}
+.letter p{font-size:clamp(.98rem,3.7vw,1.12rem);line-height:1.95;color:#f5e5eb;white-space:pre-wrap}
+.signature{text-align:right!important;color:var(--gold)!important;font-style:italic;margin-top:24px}
+.small-note{font:12px/1.7 system-ui,sans-serif;color:#cdb5c1;margin-top:20px}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="petals" aria-hidden="true"></div>
+<section class="screen active" id="intro">
+ <div class="orb one"></div><div class="orb two"></div>
+ <div class="wrap">
+  <div class="flower" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><b></b></div>
+  <div class="eyebrow">A little universe, made for you</div>
+  <h1>Where the Petals<br><span class="script">Find Mahi</span></h1>
+  <p>Some days deserve more than a wish.<br>This little moment is all yours.</p>
+  <button class="btn" onclick="show('birthday');petalBurst(30)">Open Your Surprise</button>
+ </div>
+</section>
+
+<section class="screen" id="birthday">
+ <div class="orb one"></div><div class="orb two"></div>
+ <div class="wrap">
+  <div class="eyebrow">Today, the universe celebrates you</div>
+  <h1 class="line">Happy Birthday,<br><span class="script">Mahi Sonuuuu 🎀</span></h1>
+  <div class="glass">
+   <div class="glass"><p class="wish" style="white-space:pre-line;text-align:left">Happy Birthday Mera Sonaaaa mera bachhaaaaa meri jaanuuuuuuu 😽💞
+
+I love you so much babe 💘
+
+Aaj ka din mere liye itna zyada special hai ki aap soch bhi nhi skti 🥺✨
+
+Aaj ka or apki life mein aney wale sare din khushiyon se bhadhi rahe babe 💗
+
+Apko life mein tarakki, peace, or Mera pyaar milta rhe 🤭💞
+
+Or life ke harr modhh pr yaad rakhna "There is a person who always wishing the best for you, my babbbeee 🫂💝"</p></div>
+  </div>
+  <p class="script">Aaj ka din sirf aapke naam…</p>
+  <button class="btn" onclick="show('ask');petalBurst(16)">A little more…</button>
+ </div>
+</section>
+
+<section class="screen" id="ask">
+ <div class="orb one"></div><div class="orb two"></div>
+ <div class="wrap glass">
+  <div class="eyebrow">Just one little question</div>
+  <h2 class="dialogue">Waise… main aapse kuch aur bhi bolna chahta hoon. Kya main bol sakta hoon? 🥺👉🏼👈🏼</h2>
+  <div class="actions">
+   <button class="btn" id="yesTalk" onclick="show('proposal');beginProposal()">Haan, bolo</button>
+   <button class="btn secondary" id="noTalk" onclick="playfulNo()">Mat bolo</button>
+  </div>
+  <p id="plea" class="small-note" aria-live="polite"></p>
+ </div>
+</section>
+
+<section class="screen" id="proposal">
+ <div class="orb one"></div><div class="orb two"></div>
+ <div class="wrap glass">
+  <div class="eyebrow">A thought about tomorrow</div>
+  <h2 class="script">Mahi, ek baat…</h2>
+  <div class="proposal-lines" id="proposalLines">
+   <p>Mahi, jab main apna future imagine karta hoon, toh usmein aapke saath chhoti-chhoti khushiyan, hasi, ek pyaara sa ghar aur dher saari beautiful memories hoti hain.</p>
+   <p>Aisa future jahan hum ek doosre ka saath dein, ek doosre ko samjhein, saath grow karein, aur life ke har naye mod ko milkar khoobsurat banayein.</p>
+   <p>Aur agar kabhi hum dono ready hon, aur life humein uss pyaare se chapter tak le jaaye…</p>
+   <p class="proposal-question">Toh kya aap meri ek bachhii ki maa banogi?</p>
+   <p>Kya aap mere saath woh future imagine karna chahogi? 💗</p>
+  </div>
+  <div class="actions" id="proposalActions" style="opacity:0;pointer-events:none">
+   <button class="btn" onclick="sayYes()">Haan 💗</button>
+   <button class="btn secondary" onclick="sayNo()">Nahi 🙏🏼</button>
+  </div>
+  <p id="noReply" class="small-note" aria-live="polite"></p>
+ </div>
+</section>
+
+<section class="screen" id="celebration">
+ <div class="orb one"></div><div class="orb two"></div>
+ <div class="wrap">
+  <div class="eyebrow">A beautiful little possibility</div>
+  <div class="ring-stage"><div class="ring" aria-hidden="true"></div></div>
+  <h1><span class="script">A new dream</span><br>to keep blooming</h1>
+  <div><span class="rose"></span><span class="rose"></span><span class="rose"></span></div>
+  <p>Thank you for sharing this little moment with me, Mahi. Here's to kindness, laughter, growing together, and all the lovely memories still waiting for us. 💗</p>
+  <button class="btn" onclick="openLetter()">Read a little more</button>
+ </div>
+</section>
+
+<section class="screen" id="letterScreen">
+ <div class="orb one"></div><div class="orb two"></div>
+ <div class="wrap">
+  <div class="eyebrow">A letter, from my heart</div>
+  <h2 class="script">For my Mahi</h2>
+  <div class="glass letter" id="letterCard">
+   <p id="letterText">First of all wishing you a Happy and Healthy Birthday My Babbieee 🫶🏼✨ and I want you to know that I love you so much babbeee 💕 from the maximum depth of my heart 💝 pata nhi kaise itni jaldi itna zyada attechment ho gya aap se, pata nhi kaise itni saari feelings itni jaldi bann gyi apke bare mein that I can't even think about living without you even for a day 😔 aaj humara saath mein 22th day hai 🫂, and i know ye bht kaam din hai or usme bhi hum bohot ladhai kiye hai... But trust me babe aapko daant laga kr meh bhi khush nhi rehta hu kabhi, and nah meine kabhi aapka bura chaha nah kabhi chahunga 💞 humesha saath nibhate rehna aise hee, ik mujhe sambhalna thoda mushkil hai thoda gussa bhi ho jata hu but utta hee jyada pyaar bhi karta hu aap se 🫂💞 Love You So Much Mera Bachhhaaaaaa 💗 Hope ageey ka shaafar saath mein bohot suhana hoga 🫂💕</p>
+   <p class="signature">from,<br>Your Bhondu Husband<br>Rixy 😽💞</p>
+  </div>
+  <button class="btn secondary" style="margin-top:22px" onclick="show('intro')">Relive the surprise</button>
+ </div>
+</section>
+<script>
+const screens=[...document.querySelectorAll('.screen')];
+function show(id){screens.forEach(s=>s.classList.toggle('active',s.id===id));window.scrollTo({top:0,behavior:'smooth'});}
+function petalBurst(count=18){
+ const layer=document.getElementById('petals');
+ for(let i=0;i<count;i++){
+  const p=document.createElement('span');p.className='petal';
+  p.style.left=(Math.random()*100)+'vw';
+  p.style.setProperty('--sway',((Math.random()-.5)*180)+'px');
+  p.style.animationDuration=(7+Math.random()*7)+'s';
+  p.style.animationDelay=(Math.random()*2)+'s';
+  p.style.transform='rotate('+Math.random()*360+'deg)';
+  layer.appendChild(p);setTimeout(()=>p.remove(),16000);
+ }
+}
+function makeStars(){
+ const intro=document.querySelectorAll('.screen');
+ intro.forEach(screen=>{for(let i=0;i<9;i++){const s=document.createElement('i');s.className='spark';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*3+'s';screen.appendChild(s);}});
+}
+let playfulCount=0;
+function playfulNo(){
+ playfulCount++;
+ const messages=[
+  'Please bolne do na… please, mujhe bolne do. 🥺👉🏼👈🏼',
+  'Bas ek chhoti si baat hai… promise, sunna toh. 🥺',
+  'Areee bebboooo, ek baar sun lo na. 💗',
+  'Almost maan jao naaa… 🥺',
+  'Last request, pakka! 🤭',
+  "Ab you don't have any other option bebboooo 👅"
+ ];
+ document.getElementById('plea').textContent=messages[Math.min(playfulCount-1,5)];
+ const no=document.getElementById('noTalk'),yes=document.getElementById('yesTalk');
+ yes.style.transform='scale('+Math.min(1.18,1+playfulCount*.035)+')';
+ if(playfulCount<=5){
+  no.classList.add('dodging');
+  const pad=18, maxX=Math.max(pad,window.innerWidth-no.offsetWidth-pad);
+  const maxY=Math.max(pad,window.innerHeight-no.offsetHeight-pad);
+  const x=pad+Math.random()*(maxX-pad);
+  const y=pad+Math.random()*(maxY-pad);
+  no.style.left=x+'px';
+  no.style.top=y+'px';
+  no.style.transform='scale('+Math.max(.84,1-playfulCount*.025)+')';
+ }else{
+  no.style.opacity='0';
+  no.style.transform='scale(.2)';
+  setTimeout(()=>{no.hidden=true;no.classList.remove('dodging');},470);
+ }
+}
+function beginProposal(){
+ const lines=[...document.querySelectorAll('#proposalLines p')];
+ lines.forEach((line,i)=>{line.style.opacity='0';line.style.animation='none';setTimeout(()=>{line.style.animation='lineIn .9s ease forwards';line.style.animationDelay='0s';},i*1500);});
+ const actions=document.getElementById('proposalActions');actions.style.opacity='0';actions.style.pointerEvents='none';
+ setTimeout(()=>{actions.style.transition='opacity 1s';actions.style.opacity='1';actions.style.pointerEvents='auto';},lines.length*1500+650);
+}
+function sayNo(){
+ document.getElementById('noReply').textContent='Achha ji… 💗';
+}
+function sayYes(){show('celebration');petalBurst(55);setTimeout(()=>petalBurst(25),1800);}
+function openLetter(){show('letterScreen');petalBurst(12);document.getElementById('letterCard').scrollTop=0;}
+makeStars();
+</script>
+</body>
+</html>
